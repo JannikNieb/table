@@ -5,4 +5,5 @@ This project included code to show the data of a machine learning pipeline in a 
 ## Getting started
 To install all dependencies run `$ pip install -r requirements.txt` in a python3 virtualenv
 
-
+## Running tests
+To run tests install pytest and run `pytest`.
