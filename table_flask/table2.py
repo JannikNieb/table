@@ -10,8 +10,9 @@ app = Flask(__name__)
 id_list=[]
 value1_list=[]
 value2_list=[]
+dicts=[]
 
-dicts = [
+''''dicts = [
             {
                 'id': 1,
                 'value_1': 0.7,
@@ -21,27 +22,28 @@ dicts = [
                 'id': 2,
                 'value_1': 0.5,
                 'value_2': 2.3
-            },
-            {
-                'id': 3,
-                'value_1': 0.6,
-                'value_2': 3
-            },
-            {
-                'id': 4,
-                'value_1': 0.89,
-                'value_2': 32
             }
-           ]
+           ]'''
 
-for i in dicts:
-    id_list.append(i['id'])
-    value1_list.append(i['value_1'])
-    value2_list.append(i['value_2'])
+def collect_data(n):
+    for j in range(0,n):
+        filename = f'data/score{j}.json'
+        with open(filename, 'r') as file:
+            print(file)
+            essence=file.read()
+            essence=essence.split()
+            list(essence)
+            dicts.append(essence)
 
-data = dict(id=id_list,
-            value_1=value1_list,
-            value_2=value2_list,)
+collect_data(n=10)
+print(dicts)
+
+
+for i in range(len(dicts)):
+    data_file=dicts[i]
+    id_list.append(data_file[1])
+
+data = dict(id=id_list)
 
 source = ColumnDataSource(data)
 
@@ -49,8 +51,8 @@ source = ColumnDataSource(data)
 def create_table():
     columns = [
             TableColumn(field="id", title="id"),
-            TableColumn(field="value_1", title="value_1"),
-            TableColumn(field="value_2", title="value_2"),
+            #TableColumn(field="value_1", title="value_1"),
+            #TableColumn(field="value_2", title="value_2"),
         ]
     data_table = DataTable(source=source, columns=columns, width=800, height=400)
 
