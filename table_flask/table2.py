@@ -8,9 +8,13 @@ from bokeh.resources import INLINE
 app = Flask(__name__)
 
 id_list=[]
-value1_list=[]
-value2_list=[]
+value1_list=[0]*10
+value2_list=[0]*10
+value3_list=[0]*10
+value4_list=[0]*10
+value5_list=[0]*10
 dicts=[]
+n_list=[]
 
 ''''dicts = [
             {
@@ -29,21 +33,42 @@ def collect_data(n):
     for j in range(0,n):
         filename = f'data/score{j}.json'
         with open(filename, 'r') as file:
-            print(file)
             essence=file.read()
             essence=essence.split()
             list(essence)
             dicts.append(essence)
 
 collect_data(n=10)
-print(dicts)
 
 
 for i in range(len(dicts)):
     data_file=dicts[i]
     id_list.append(data_file[1])
+    for n in range(1, 5):
+        if f'"val{n}":' in data_file:
+            index = data_file.index(f'"val{n}":')
+            value = data_file[index+1]
+            if n==1:
+                value1_list[i]=value
+            elif n==2:
+                value2_list[i]=value
+            elif n==3:
+                value3_list[i]=value
+            elif n==4:
+                value4_list[i]=value
+            elif n==5:
+                value5_list[i]=value
 
-data = dict(id=id_list)
+print(value1_list)
+
+data = dict(
+        id=id_list,
+        value_1=value1_list,
+        value_2=value2_list,
+        value_3=value3_list,
+        value_4=value4_list,
+        value_5=value5_list,
+            )
 
 source = ColumnDataSource(data)
 
@@ -51,8 +76,11 @@ source = ColumnDataSource(data)
 def create_table():
     columns = [
             TableColumn(field="id", title="id"),
-            #TableColumn(field="value_1", title="value_1"),
-            #TableColumn(field="value_2", title="value_2"),
+            TableColumn(field="value_1", title="value_1"),
+            TableColumn(field="value_2", title="value_2"),
+            TableColumn(field="value_3", title="value_3"),
+            TableColumn(field="value_4", title="value_4"),
+            TableColumn(field="value_5", title="value_5"),
         ]
     data_table = DataTable(source=source, columns=columns, width=800, height=400)
 
