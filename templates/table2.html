@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="{{ url_for('static', filename='table2.css') }}" rel="stylesheet">
+    <link href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.15.min.css" rel="stylesheet">
+    <link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.15.min.css" rel="stylesheet">
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.15.min.js"></script>
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.15.min.js"></script>
+</head>
+<body id="top">
+    	<div class="container">
+
+	<header>
+		<h1> model score </h1>
+	</header>
+
+	<div class="topnav">
+		<a href="http://www.cognotekt.com/"> Cognotekt </a>
+	</div>
+
+	<nav>
+		<h2>Project Description</h2>
+		<p>This project included code to show the data of a machine learning pipeline in a nice way. </p>
+	</nav>
+
+	<article>
+		<h1> Scores </h1>
+
+		<p> The table was created with Python, using the <a href="https://bokeh.pydata.org/en/latest/">bokey</a> and <a href="http://flask.pocoo.org/"> flask</a> libraries: </p>
+
+    <div class="table">
+        {{ div|safe }}
+        {{ js_resources|safe }}
+        {{ css_resources|safe }}
+        {{ script|safe }}
+    </div>
+
+	</article>
+
+	</div>
+
+
+</body>
+</html>

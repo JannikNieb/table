@@ -1,0 +1,92 @@
+div.container {
+	background-color: black;
+}
+
+body {
+		background-color: black;
+		background-image: bilder/Manfred.jpg
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    width: 100%;
+    text-align: center;
+	text-decoration: underline;
+}
+
+nav {
+    float: left;
+    width: 300px;
+    margin: 0;
+    padding: 10px;
+	background-color: #4d79ff;
+	font-size: 100%;
+	font-weight: bold;
+	position: fixed;
+	top: 1em;
+	bottom: 0em;
+}
+
+
+article {
+    padding: 1em;
+	background-color: #cccccc;
+	position: relative;
+	margin-top: 15px;
+	margin-left: 340px;
+}
+
+article h1{
+    font-size: 200%;
+	text-align: center;
+	text-decoration: underline;
+}
+
+article h2{
+	text-decoration: underline;
+}
+
+section{
+	border: 1px solid gray;
+	top: 125px;
+	left: 270px;
+	position: absolute;
+	height: 80px;
+	z-index: 1;
+}
+
+img{
+	border: 1px solid black;
+}
+
+a{
+	color: black;
+}
+
+div.topnav {
+    overflow: hidden;
+    background-color: #4d4d4d;
+	margin-left: 340px;
+}
+
+div.topnav a{
+	float: left;
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+	color: white;
+}
+
+div.topnav a:hover{
+	color: white;
+	background-color: #1a1a1a;
+}
+
+.table{
+    margin-left: 100px;
+    margin-top: 50px;
+    text-align: center;
+}
