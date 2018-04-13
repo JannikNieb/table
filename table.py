@@ -1,4 +1,4 @@
-from os import scandir
+import os
 import json
 import uuid
 
@@ -13,6 +13,8 @@ from wtforms import Form, validators, StringField, SubmitField
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = '1234'
+
+DATA_FOLDER = os.environ.get('DATA_FOLDER', 'data')
 
 
 class ReusableForm(Form):
@@ -29,7 +31,7 @@ def list_files(foldername):
     Returns:
         files: (list)
     """
-    return [x for x in scandir(foldername) if x.is_file()]
+    return [x for x in os.scandir(foldername) if x.is_file()]
 
 
 def get_data(files):
@@ -155,7 +157,7 @@ def create_table():
 
         added_data = [{"id": str(uuid.uuid1()), key: float(value)}, key]
 
-    files = list_files('data')
+    files = list_files(DATA_FOLDER)
     data = get_data(files)
     keys = get_dict_keys(data, files)
     print(keys)
