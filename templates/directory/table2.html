@@ -32,47 +32,24 @@
 
 		<p> The table was created with Python, using the <a href="https://bokeh.pydata.org/en/latest/">bokey</a> and <a href="http://flask.pocoo.org/"> flask</a> libraries: </p>
 
-	<div class="table">
+    <div class="table">
         {{ div|safe }}
         {{ js_resources|safe }}
         {{ css_resources|safe }}
         {{ script|safe }}
+    </div>
+
+	<div class="form" action="" method="post">
+		{{ form.csrf }}
+
+		<p>
+			{{ form.name.label|safe }} {{ form.name|safe }}
+		</p>
+
+		<div class="input submit">
+			<input type="submit" value="Submit" />
+		</div>
 	</div>
-
-	<div class="input">
-		<h3>Add 1 set of data containing 1 (existing) key</h3>
-		{% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <ul>
-                    {% for message in messages %}
-                        <li>{{ message[1] }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-        <form action="" method="post">
-            {{ form.csrf }}
-
-
-
-                <p class="input value">
-                    {{ form.value.label }} {{ form.value }}
-                </p>
-
-            <p class="input value">
-                {{ form.key.label }} {{ form.key }}
-            </p>
-
-			<p>
-            <div class="input_submit">
-                <input type="submit" value="Submit" />
-            </div></p>
-
-
-        </form>
-	</div>
-
-
 
 
 	</article>

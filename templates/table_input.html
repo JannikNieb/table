@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="{{ url_for('static', filename='table2.css') }}" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+
+	<header>
+		<h1> model scores </h1>
+	</header>
+
+	<div class="topnav">
+		<a href="https://github.com/JannikNieb/table.git"> GitHub </a>
+		<a href="http://www.cognotekt.com/"> Cognotekt </a>
+		<a href="http://127.0.0.1:5000/"> Table </a>
+	</div>
+
+	<nav>
+		<h2>Project Description</h2>
+		<p>This project included code to show the data of a machine learning pipeline in a nice way. </p>
+	</nav>
+
+	<article>
+		<h1> input for table </h1>
+	 	 {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message[1] }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <form action="" method="post">
+            {{ form.csrf }}
+
+        <div class="input">
+            <p class="input value">
+                {{ form.value.label }} {{ form.value }}
+            </p>
+
+            <p class="input key">
+                {{ form.key.label }} {{ form.key }}
+            </p>
+
+            <div class="input submit">
+                <input type="submit" value="Submit" />
+            </div>
+        </div>
+        </form>
+	</article>
+		</div>
+
+	</body>
+</html>

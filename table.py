@@ -1,14 +1,23 @@
-from bokeh.models import ColumnDataSource
-from bokeh.models.widgets import DataTable, DateFormatter, TableColumn, TextInput
-from bokeh.io import output_file, show
-from bokeh.embed import components
-from flask import Flask, render_template, request
-from bokeh.resources import INLINE
-from os.path import isdir
 from os import scandir
 import json
+import uuid
+
+from bokeh.models import ColumnDataSource
+from bokeh.models.widgets import DataTable, TableColumn
+from bokeh.embed import components
+from bokeh.resources import INLINE
+from flask import Flask, render_template,  flash, request
+from wtforms import Form, validators, StringField, SubmitField
+
 
 app = Flask(__name__)
+app.config.from_object(__name__)
+app.config['SECRET_KEY'] = '1234'
+
+
+class ReusableForm(Form):
+    value = StringField('Value:', validators=[validators.required()])
+    key = StringField('Key:', validators=[validators.required()])
 
 
 def list_files(foldername):
@@ -39,6 +48,7 @@ def get_data(files):
     for filename in files:
         with open(filename, 'r') as file:
             dicts.append(json.load(file))
+
     return dicts
 
 
@@ -97,7 +107,18 @@ def clean_data(keys, data, default="-"):
     for i in range(len(lists)):
         data[keys[i]] = lists[i]
 
+    print(data)
     return data
+
+
+def add_data(added_data, cleaned_data, keys, default="-"):
+    print(added_data)
+    for key in keys[1:]:
+        cleaned_data[key].insert(0, default)
+    cleaned_data["id"].insert(0, added_data[0]["id"])
+    cleaned_data[added_data[1]].insert(0, added_data[0][added_data[1]])
+
+
 
 
 def render_table(cleaned_data, keys):
@@ -116,25 +137,40 @@ def render_table(cleaned_data, keys):
     for i in keys:
         columns.append(TableColumn(field=str(i), title=str(i)))
 
-    data_table = DataTable(source=source, columns=columns, width=800, height=400)
+    data_table = DataTable(source=source, columns=columns, width=1200)
 
     return data_table
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def create_table():
+    form = ReusableForm(request.form)
+
+    if request.method == "POST":
+        value = request.form['value']
+        key = request.form['key']
+        if form.validate():
+            flash('Key: ' + key + " and Value: " + value + " have been added to your table!")
+
+
+        added_data = [{"id": str(uuid.uuid1()), key: float(value)}, key]
 
     files = list_files('data')
     data = get_data(files)
     keys = get_dict_keys(data, files)
+    print(keys)
     cleaned_data = clean_data(keys, data)
+    if request.method == "POST":
+        add_data(added_data, cleaned_data, keys)
     bokeh_table = render_table(cleaned_data, keys)
 
     js_resources = INLINE.render_js()
     css_resources = INLINE.render_css()
 
     script, div = components(bokeh_table)
-    return render_template("table2.html", script=script, div=div, js_resources=js_resources, css_resources=css_resources,)
+    return render_template("table2.html", script=script, div=div,
+                           js_resources=js_resources, css_resources=css_resources, form=form)
+
 
 
 if __name__ == '__main__':

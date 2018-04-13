@@ -14,6 +14,7 @@ header, footer {
     width: 100%;
     text-align: center;
 	text-decoration: underline;
+	font-size: 130%
 }
 
 nav {
@@ -21,6 +22,7 @@ nav {
     width: 300px;
     margin: 0;
     padding: 10px;
+    padding-top: 40px;
 	background-color: #4d79ff;
 	font-size: 100%;
 	font-weight: bold;
@@ -29,6 +31,9 @@ nav {
 	bottom: 0em;
 }
 
+nav p{
+    padding-top: 10px;
+}
 
 article {
     padding: 1em;
@@ -46,15 +51,6 @@ article h1{
 
 article h2{
 	text-decoration: underline;
-}
-
-section{
-	border: 1px solid gray;
-	top: 125px;
-	left: 270px;
-	position: absolute;
-	height: 80px;
-	z-index: 1;
 }
 
 img{
@@ -88,5 +84,10 @@ div.topnav a:hover{
 .table{
     margin-left: 100px;
     margin-top: 50px;
+    text-align: center;
+}
+
+div.input{
+    border: 1px solid black;
     text-align: center;
 }

@@ -16,7 +16,7 @@ def create_data():
 
 def save_json_files(n):
     for j in range(0, n):
-        filename = f'data/score{j}.json'
+        filename = f'table_flask/data/score{j}.json'
         print(f"Writing data to file: {filename}")
         with open(filename, 'w') as file:
             json.dump(create_data(), file)
